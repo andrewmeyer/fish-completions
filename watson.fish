@@ -1,5 +1,4 @@
-# copy this into ~/.config/fish/completions/ to enable autocomplet for the watson time tracker
-# Author: Andrew Meyer
+# copy this into ~/.config/fish/completions/ to enable autocomplete for the watson time tracker
 #
 function __fish_watson_needs_sub -d "provides a list of sub commands"
   set cmd (commandline -opc)
