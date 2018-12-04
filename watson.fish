@@ -44,6 +44,7 @@ function __fish_watson_get_frames -d "return a list of frames" #TODO, use watson
   command watson frames
 end
 
+# if a backend.url is set, use it in the command description
 if [ -e ~/.config/watson/config ]
   set url_string (command watson config backend.url 2> /dev/null)
   if test -n "$url_string"
@@ -64,16 +65,12 @@ complete -f -c watson -n '__fish_watson_needs_sub' -a help -d "Display help info
 complete -f -c watson -n '__fish_watson_needs_sub' -a log -d "Display sessions during the given timespan"
 complete -f -c watson -n '__fish_watson_needs_sub' -a merge -d "merge existing frames with conflicting ones"
 complete -f -c watson -n '__fish_watson_needs_sub' -a projects -d "Display the list of projects"
-                      
-# sync                
-complete -f -c watson -n '__fish_watson_needs_sub' -a sync -d "sync your work with $url"
-                      
 complete -f -c watson -n '__fish_watson_needs_sub' -a tags -d "Display the list of tags"
+complete -f -c watson -n '__fish_watson_needs_sub' -a sync -d "sync your work with $url"
 
 #edit
 complete -f -c watson -n '__fish_watson_needs_sub' -a edit -d "Edit a frame"
 complete -f -c watson -n '__fish_watson_using_command edit' -a "(__fish_watson_get_frames)"
-
 
 #remove
 complete -f -c watson -n '__fish_watson_needs_sub' -a remove -d "Remove a frame"
