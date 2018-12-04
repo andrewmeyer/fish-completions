@@ -8,7 +8,7 @@ function __fish_watson_needs_sub -d "provides a list of sub commands"
   return 1
 end
 
-function __fish_watson_using_command
+function __fish_watson_using_command -d "determine if watson is using the passed command"
   set cmd (commandline -opc)
   if [ (count $cmd) -eq 2 -a $cmd[1] = 'watson' ]
     if [ $argv[1] = $cmd[2] ]
@@ -19,15 +19,15 @@ function __fish_watson_using_command
   return 1
 end
 
-function __fish_watson_get_projects
+function __fish_watson_get_projects -d "return a list of projects"
   command watson projects
 end
 
-function __fish_watson_get_tags
+function __fish_watson_get_tags -d "return a list of tags"
   command watson tags
 end
 
-function __fish_watson_has_project
+function __fish_watson_has_project -d "determine if watson is using a passed command and if it has a project"
   set cmd (commandline -opc)
   if [ (count $cmd) -gt 2 -a $cmd[1] = 'watson' ]
     if [ $argv[1] = $cmd[2] ]
