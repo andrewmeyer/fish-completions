@@ -54,32 +54,51 @@ else
 end
 
 complete -f -c watson -n '__fish_watson_needs_sub' -a cancel -d "Cancel the last start command"
-complete -f -c watson -n '__fish_watson_needs_sub' -a config -d "Get and set configuration options"
 complete -f -c watson -n '__fish_watson_needs_sub' -a report -d "Display a report of time spent"
 complete -f -c watson -n '__fish_watson_needs_sub' -a restart -d "Restart monitoring time for a stopped project"
 complete -f -c watson -n '__fish_watson_needs_sub' -a status -d "Display when the current project was started and time spent"
 complete -f -c watson -n '__fish_watson_needs_sub' -a stop -d " Stop monitoring time for the current project"
 complete -f -c watson -n '__fish_watson_needs_sub' -a frames -d "Display the list of all frame IDs"
 complete -f -c watson -n '__fish_watson_needs_sub' -a help -d "Display help information"
-complete -f -c watson -n '__fish_watson_needs_sub' -a log -d "Display sessions during the given timespan"
 complete -f -c watson -n '__fish_watson_needs_sub' -a merge -d "merge existing frames with conflicting ones"
 complete -f -c watson -n '__fish_watson_needs_sub' -a projects -d "Display the list of projects"
 complete -f -c watson -n '__fish_watson_needs_sub' -a tags -d "Display the list of tags"
 complete -f -c watson -n '__fish_watson_needs_sub' -a sync -d "sync your work with $url"
 
-#edit
+# config
+complete -f -c watson -n '__fish_watson_needs_sub' -a config -d "Get and set configuration options"
+complete -f -c watson -n '__fish_watson_using_command config' -s e -l edit -d "Edit the config with an editor"
+
+# edit
 complete -f -c watson -n '__fish_watson_needs_sub' -a edit -d "Edit a frame"
 complete -f -c watson -n '__fish_watson_using_command edit' -a "(__fish_watson_get_frames)"
 
-#remove
+# log
+complete -f -c watson -n '__fish_watson_needs_sub' -a log -d "Display sessions during the given timespan"
+complete -f -c watson -n '__fish_watson_using_command log' -s c -l current -d "include the running frame"
+complete -f -c watson -n '__fish_watson_using_command log' -s C -l no-current -d "exclude the running frame (default)"
+complete -f -c watson -n '__fish_watson_using_command log' -s f -l from -d "Start date for log"
+complete -f -c watson -n '__fish_watson_using_command log' -s t -l to -d "end date for log" #TODO exclude this unless --from is specified
+complete -f -c watson -n '__fish_watson_using_command log' -s y -l year -d "show the last year"
+complete -f -c watson -n '__fish_watson_using_command log' -s m -l month -d "show the last month"
+complete -f -c watson -n '__fish_watson_using_command log' -s w -l week -d "show week-to-day"
+complete -f -c watson -n '__fish_watson_using_command log' -s d -l day -d "show today"
+complete -f -c watson -n '__fish_watson_using_command log' -s a -l all -d "show all"
+complete -f -c watson -n '__fish_watson_using_command log' -s p -l project -d "restrict to project"
+complete -f -c watson -n '__fish_watson_using_command log' -s t -l tag -d "restrict to tag"
+complete -f -c watson -n '__fish_watson_using_command log' -s j -l json -d "output json"
+complete -f -c watson -n '__fish_watson_using_command log' -s g -l pager -d "view through pager"
+complete -f -c watson -n '__fish_watson_using_command log' -s G -l no-pager -d "don't vew through pager"
+
+# remove
 complete -f -c watson -n '__fish_watson_needs_sub' -a remove -d "Remove a frame"
 complete -f -c watson -n '__fish_watson_using_command remove' -a "(__fish_watson_get_frames)"
 
-#rename
+# rename
 complete -f -c watson -n '__fish_watson_needs_sub' -a rename -d "Rename a project or tag"
 complete -f -c watson -n '__fish_watson_using_command rename' -a "(__fish_watson_get_projects) (__fish_watson_get_tags)"
 
-#start
+# start
 complete -f -c watson -n '__fish_watson_needs_sub' -a start -d "Start monitoring time for a project"
 complete -f -c watson -n '__fish_watson_using_command start' -a "(__fish_watson_get_projects)"
 complete -f -c watson -n '__fish_watson_has_project start' -a "+(__fish_watson_get_tags)"
