@@ -55,6 +55,21 @@ function __fish_watson_get_frames -d "return a list of frames" #TODO, use watson
   command watson frames
 end
 
+function __fish_watson_needs_project -d "check if we need a project"
+  set cmd (commandline -opc)
+  if [ (count $cmd) -ge 2 -a $cmd[1] = 'watson' ]
+    if [ $argv[1] = $cmd[2] ]
+      for i in $cmd
+        if contains $i (__fish_watson_get_projects)
+          return 1 # return 1 because we alredy have a project
+        end
+      end
+      return 0 # we are using $argv as our command and the command does not contain any projects
+    end
+  end
+  return 1
+end
+
 # if a backend.url is set, use it in the command description
 if [ -e ~/.config/watson/config ]
   set url_string (command watson config backend.url 2> /dev/null)
@@ -65,6 +80,7 @@ else
   set url "a remote Crick server"
 end
 
+# ungrouped
 complete -f -c watson -n '__fish_watson_needs_sub' -a cancel -d "Cancel the last start command"
 complete -f -c watson -n '__fish_watson_needs_sub' -a stop -d " Stop monitoring time for the current project"
 complete -f -c watson -n '__fish_watson_needs_sub' -a frames -d "Display the list of all frame IDs"
@@ -135,10 +151,10 @@ complete -f -c watson -n '__fish_watson_using_command restart' -a "(__fish_watso
 
 # start
 complete -f -c watson -n '__fish_watson_needs_sub' -a start -d "Start monitoring time for a project"
-complete -f -c watson -n '__fish_watson_using_command start' -a "(__fish_watson_get_projects)"
+complete -f -c watson -n '__fish_watson_needs_project start' -a "(__fish_watson_get_projects)"
 complete -f -c watson -n '__fish_watson_has_project start' -a "+(__fish_watson_get_tags)"
 
-#status
+# status
 complete -f -c watson -n '__fish_watson_needs_sub' -a status -d "Display when the current project was started and time spent"
 complete -f -c watson -n '__fish_watson_using_command status' -s p -l project -d "only show project"
 complete -f -c watson -n '__fish_watson_using_command status' -s t -l tags -d "only show tags"
